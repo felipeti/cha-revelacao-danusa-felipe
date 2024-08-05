@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chá Revelação do Bebê</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff66b2, #66ccff);
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        .question-container {
+            display: none;
+        }
+        .question {
+            margin: 20px 0;
+            display: none; /* Inicialmente escondido */
+        }
+        .question.active {
+            display: block; /* Exibido apenas se ativo */
+        }
+        .button {
+            background-color: #fff;
+            color: #ff66b2;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #ff99cc;
+        }
+        .animation {
+            display: none;
+            margin-top: 50px;
+        }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #ff66b2; /* Pink */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+		.blue-background {
+            background: #66ccff; /* Azul */
+		}
+		.stop-spin {
+            animation: none !important; /* Para a animação com prioridade */
+        }
+		.hide-loader {
+            display: none; /* Oculta o loader */
+        }
+		
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BEM-VINDOS AO CHÁ DIGITAL REVELAÇÃO DO BEBÊ DA DANUSA E DO FELIPE!!!</h1>
+        <p>Estamos prestes a revelar se o nosso bebê será um menino ou uma menina!</p>
+		<p>TCHANANANANANA.....</p>
+		
+        <button class="button" id="startButton">DESCOBRIR</button>
+
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="question1">
+                <p>Você está animado para saber o gênero do bebê? </p>
+                <button class="button" onclick="nextQuestion()">Sim</button>
+                <button class="button" onclick="end()">Não</button>
+            </div>
+            <div class="question" id="question2">
+                <p>Tem certeza que não deseja esperar os 9 meses para saber?</p>
+                <button class="button" onclick="nextQuestion()">Sim</button>
+                <button class="button" onclick="end()">Não</button>
+            </div>
+            <div class="question" id="question3">
+                <p>OK, só mais algumas perguntas, está com paciência?</p>
+                <button class="button" onclick="nextQuestion()">Sim</button>
+                <button class="button" onclick="end()">Não</button>
+            </div>
+            <div class="question" id="question4">
+                <p>Você já comprou algum presente para o bebê?</p>
+                <button class="button" onclick="nextQuestion()">Sim</button>
+                <button class="button" onclick="end()">Não</button>
+            </div>
+            <div class="question" id="question5">
+                <p>Você está pronto para a grande revelação?</p>
+                <button class="button" onclick="reveal()">Sim</button>
+                <button class="button" onclick="end()">Não</button>
+            </div>
+        </div>
+
+        <div class="animation" id="animation">
+            <p>Prepare-se para a revelação!</p>
+            <div class="loader"></div>
+            <!-- Animação para menino -->
+            <div id="boyReveal" style="display:none;">
+                <h2>É UM MENINO!</h2>
+                <img src="boy-image.png" alt="Menino" />
+            </div>
+            <!-- Animação para menina (opcional) -->
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+
+        document.getElementById('startButton').addEventListener('click', function() {
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('questionContainer').style.display = 'block';
+            showQuestion(currentQuestion);
+        });
+
+        function showQuestion(number) {
+            // Esconde todas as perguntas
+            const questions = document.querySelectorAll('.question');
+            questions.forEach(q => q.classList.remove('active'));
+
+            // Mostra a pergunta atual
+            const current = document.getElementById('question' + number);
+            if (current) {
+                current.classList.add('active');
+            }
+        }
+
+        function nextQuestion() {
+            document.getElementById('question' + currentQuestion).classList.remove('active');
+            currentQuestion++;
+            if (currentQuestion <= 5) {
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function reveal() {
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('animation').style.display = 'block';            
+           setTimeout(function() {
+                document.getElementById('boyReveal').style.display = 'block';
+				document.body.classList.add('blue-background'); // Muda o fundo para azul
+				// Aqui você pode adicionar uma animação ou efeitos de revelação
+				document.getElementById('loader').classList.add('stop-spin'); // Para a animação do loader
+				
+				
+            }
+			, 2000);
+        }
+
+
+        function end() {
+            document.body.innerHTML = '<h1>Obrigado por visitar!</h1>';
+        }
+    </script>
+</body>
+</html>
